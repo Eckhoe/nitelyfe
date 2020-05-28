@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "371887738996",
+    "firebase_url": "https://nitelyfe-904d3.firebaseio.com",
+    "project_id": "nitelyfe-904d3",
+    "storage_bucket": "nitelyfe-904d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371887738996:android:18e998f39f00264af24121",
+        "android_client_info": {
+          "package_name": "com.nitelyfe.nite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371887738996-shsdhkodomjfpc3tdta9a586gum4me9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEbYCzoA4SvhTnairPKfRb33JbZueFRQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371887738996-shsdhkodomjfpc3tdta9a586gum4me9b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "371887738996-v9oajfj2k46q2bl7qu1h9b82mgbvq16m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nitelyfe.nite"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
