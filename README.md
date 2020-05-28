@@ -1,6 +1,6 @@
 # nitelyfe
 
-A new Flutter project.
+The most successful app to be used by the people who love to party
 
 ## Getting Started
 
