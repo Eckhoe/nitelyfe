@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'package:nitelyfe/constants.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const String id = 'login_screen';
+
+class WelcomeScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

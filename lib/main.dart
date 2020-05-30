@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/chat_screens/messages_screen.dart';
-import 'screens/chat_screens/chat_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/home_screen.dart';
+import 'package:nitelyfe/utils/navbar.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -10,13 +8,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: LoginScreen.id,
-      routes: {
-        HomeScreen.id: (context) => HomeScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
-        MessagesScreen.id: (context) => MessagesScreen(),
-        ChatScreen.id: (context) => ChatScreen(),
-      },
+      home: CreateNavBar()
+      /*  THIS IS THE IF STATEMENT THAT MUST BE MADE
+      
+        if the user logged in has set 'remember me' on their device,
+        go straight to the 'CreateNavBar'
+
+        otherwise if the user doesnt have 'remember me' set, or is a first
+        time user, bring to login_screen and have the do the registration and
+        logging in
+        
+      */
     );
   }
 }
+
