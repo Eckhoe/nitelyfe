@@ -22,7 +22,7 @@ class _CreateNavBarState extends State<CreateNavBar> {
       body: _pages[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
         items: <Widget>[
-          Icon(Icons.verified_user, size: 16, color: Colors.black),
+          Icon(Icons.home, size: 16, color: Colors.black),
           Icon(Icons.settings, size: 16, color: Colors.black),
         ],
         backgroundColor: kNiteLyfeRed,

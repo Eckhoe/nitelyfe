@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nitelyfe/utils/map.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -35,9 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: Text('hello world'),
-      ),
+      body: FireMap(),
     );
   }
 }
+
