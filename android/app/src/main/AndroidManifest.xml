@@ -11,8 +11,9 @@
         android:label="nitelyfe"
         android:icon="@mipmap/ic_launcher">
 
-        <meta-data android:name="google.android.geo.API_KEY"
-                android:value="AIzaSyCN26_4qDHDqDjP6OSso0ZjEcS8YhBIbgM" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                android:value= "AIzaSyCN26_4qDHDqDjP6OSso0ZjEcS8YhBIbgM"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

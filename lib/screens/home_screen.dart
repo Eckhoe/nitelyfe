@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:nitelyfe/utils/map.dart';
+import 'chat_screens/messages_screen.dart';
+import 'package:nitelyfe/utils/geolocator_service.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -10,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final geoService = GeolocatorService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,15 +35,28 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(8),
               ),
               onPressed: () {
-                //TODO 1: open the messages screen
+                //TODO: push the messages screen
               },
             ),
             width: 60,
           ),
         ],
       ),
-      body: FireMap(),
+      body: FutureProvider(
+        create: (context) => geoService.getInitialLocation(),
+        child: Consumer<Position>(
+          builder: (context, position, widget) {
+            return (position == null)
+                ? Center(
+                    child: SpinKitWave(
+                      size: 48,
+                      color: Colors.black38,
+                    ),
+                  )
+                : FireMap(position);
+          },
+        ),
+      ),
     );
   }
 }
-
