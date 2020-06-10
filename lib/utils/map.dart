@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nitelyfe/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'geolocator_service.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -50,7 +50,7 @@ class _FireMapState extends State<FireMap> {
           bottom: 15,
           right: 15,
           child: FloatingActionButton(
-            child: Icon(Icons.keyboard_arrow_up),
+            child: Icon(Icons.add),
             backgroundColor: kNiteLyfeRed,
             elevation: 10,
             onPressed: null,

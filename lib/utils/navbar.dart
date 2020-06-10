@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:nitelyfe/constants.dart';
-import 'package:nitelyfe/screens/home_screen.dart';
-import 'package:nitelyfe/screens/settings_screen.dart';
+import 'package:nitelyfe/screens/main_screens/home_screen.dart';
+import 'package:nitelyfe/screens/main_screens/settings_screen.dart';
 
 class CreateNavBar extends StatefulWidget {
   @override

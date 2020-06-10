@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:nitelyfe/utils/map.dart';
-import 'chat_screens/messages_screen.dart';
+import 'package:nitelyfe/screens/chat_screens/messages_screen.dart';
 import 'package:nitelyfe/utils/geolocator_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
