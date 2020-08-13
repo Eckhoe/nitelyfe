@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:nitelyfe/screens/logreg_screens/welcome_screen.dart';
 import 'package:nitelyfe/utils/navbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+var email;
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  email = preferences.getString('email');
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -13,19 +20,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: WelcomeScreen()
-      /*  THIS IS THE IF STATEMENT THAT MUST BE MADE
-      
-        if the user logged in has set 'remember me' on their device,
-        go straight to the 'CreateNavBar'
-
-        otherwise if the user doesnt have 'remember me' set, or is a first
-        time user, bring to login_screen and have the do the registration and
-        logging in
-        
-      */
-    );
+    return MaterialApp(home: email == null ? WelcomeScreen() : CreateNavBar());
   }
 }
-
