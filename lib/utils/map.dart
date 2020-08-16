@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'geolocator_service.dart';
@@ -24,14 +27,21 @@ class _FireMapState extends State<FireMap> {
   Completer<GoogleMapController> _controller = Completer();
   Geoflutterfire geo = Geoflutterfire();
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
+  BitmapDescriptor customMarker;
   String query;
 
   @override
   void initState() {
+    createMarker();
     _geolocatorService.getCurrentLocation().listen((position) {
       followUser(position);
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -52,26 +62,35 @@ class _FireMapState extends State<FireMap> {
             else {
               final markers = snapshot.data.documents;
               for (var marker in markers) {
-                MarkerId address_name = MarkerId(marker.data['address_name']);
+                MarkerId addressName = MarkerId(marker.data['address_name']);
                 GeoPoint coordinates = marker.data['position']['geopoint'];
                 final Marker mark = Marker(
-                  markerId: address_name,
+                  markerId: addressName,
                   position: LatLng(coordinates.latitude, coordinates.longitude),
-                  icon: BitmapDescriptor.defaultMarker,
+                  icon: customMarker,
+                  onTap: () => showModalBottomSheet(
+                    context: context,
+                    builder: (context) => Container(
+                      margin: EdgeInsets.only(top: 5, left: 15, right: 15),
+                      height: 150,
+                    ),
+                  ),
                 );
-                _markers[address_name] = mark;
+                _markers[addressName] = mark;
               }
             }
             return GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(widget.initalPosition.latitude,
                     widget.initalPosition.longitude),
-                zoom: 15,
+                zoom: 17.5,
               ),
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
               myLocationEnabled: true,
+              mapToolbarEnabled: false,
+              compassEnabled: false,
               myLocationButtonEnabled: false,
               zoomControlsEnabled: false,
               mapType: MapType.normal,
@@ -108,7 +127,7 @@ class _FireMapState extends State<FireMap> {
                         left: 4,
                         right: 4,
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(56, 0, 56, 0),
+                          padding: EdgeInsets.fromLTRB(56, 0, 56, 0),
                           child: FloatingActionButton(
                             child: Text(
                               "Let's Party",
@@ -153,5 +172,21 @@ class _FireMapState extends State<FireMap> {
     _firestore
         .collection('markers')
         .add({'address_name': query, 'position': point.data});
+  }
+
+  Future<Uint8List> getByteFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo frameInfo = await codec.getNextFrame();
+    return (await frameInfo.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
+  }
+
+  createMarker() async {
+    final Uint8List markerIcon =
+        await getByteFromAsset('images/marker.png', 75);
+    customMarker = BitmapDescriptor.fromBytes(markerIcon);
   }
 }

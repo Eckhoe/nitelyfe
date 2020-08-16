@@ -6,7 +6,6 @@ import 'package:nitelyfe/utils/map.dart';
 import 'package:nitelyfe/screens/chat_screens/messages_screen.dart';
 import 'package:nitelyfe/utils/geolocator_service.dart';
 import 'package:provider/provider.dart';
-import 'package:nitelyfe/utils/authentication.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -20,12 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Authentication _auth = new Authentication(context);
-              _auth.logoutUser();
-            }),
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         iconTheme: new IconThemeData(color: Colors.black),

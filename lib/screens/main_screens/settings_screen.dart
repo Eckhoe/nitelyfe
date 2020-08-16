@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nitelyfe/utils/authentication.dart';
+import 'package:nitelyfe/constants.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -11,7 +13,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Text('Hello World'),
+        child: Container(
+          margin: EdgeInsets.fromLTRB(50, 0, 50, 0),
+          width: 200,
+          child: FloatingActionButton(
+            child: Text(
+              'Sign-Out',
+              style: TextStyle(fontFamily: 'Comfortta', fontSize: 20),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            backgroundColor: kNiteLyfeRed,
+            elevation: 10,
+            onPressed: () {
+              Authentication _auth = new Authentication(context);
+              _auth.logoutUser();
+            },
+          ),
+        ),
       ),
     );
   }
