@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:nitelyfe/screens/logreg_screens/welcome_screen.dart';
-import 'package:nitelyfe/utils/navbar.dart';
+import 'package:nitelyfe/utils/navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var email;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   email = preferences.getString('email');
   runApp(MyApp());
@@ -20,6 +23,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: email == null ? WelcomeScreen() : CreateNavBar());
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.white));
+    return MaterialApp(
+      theme: ThemeData(),
+      home: email == null ? WelcomeScreen() : NavigationBar(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }

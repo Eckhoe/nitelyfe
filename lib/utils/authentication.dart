@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:nitelyfe/screens/logreg_screens/welcome_screen.dart';
-import 'package:nitelyfe/utils/navbar.dart';
+import 'package:nitelyfe/screens/logreg_screens/login_screen.dart';
+import 'navigation_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Authentication {
@@ -20,7 +20,7 @@ class Authentication {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', email);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => CreateNavBar()));
+            context, MaterialPageRoute(builder: (context) => NavigationBar()));
       }
     } catch (e) {
       print(e);
@@ -35,7 +35,7 @@ class Authentication {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', email);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => CreateNavBar()));
+            context, MaterialPageRoute(builder: (context) => NavigationBar()));
       }
     } catch (e) {
       print(e);
@@ -47,6 +47,6 @@ class Authentication {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('email');
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }

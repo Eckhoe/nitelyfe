@@ -1,57 +1,116 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:nitelyfe/utils/map.dart';
-import 'package:nitelyfe/screens/chat_screens/messages_screen.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nitelyfe/utils/geolocator_service.dart';
-import 'package:provider/provider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String id = 'home_screen';
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final geoService = GeolocatorService();
+  GeolocatorService _geolocatorService = new GeolocatorService();
+  BitmapDescriptor _mapMarker;
+  Geoflutterfire _geo;
+  LatLng _initalPosition;
+  FirebaseFirestore _firestore;
+  Stream<List<DocumentSnapshot>> markerStream;
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+
+    BitmapDescriptor.fromAssetImage(
+            ImageConfiguration.empty, 'images/marker.png')
+        .then((onValue) {
+      _mapMarker = onValue;
+    });
+
+    _firestore = _geolocatorService.firestore;
+    _geo = Geoflutterfire();
+    Query collectionRef = _firestore.collection('locations');
+    markerStream = _geo
+        .collection(
+          collectionRef: collectionRef,
+        )
+        .within(
+            center: _geo.point(latitude: 0, longitude: 0),
+            radius: 40075,
+            field: 'position',
+            strictMode: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 5,
         backgroundColor: Colors.white,
         brightness: Brightness.light,
         iconTheme: new IconThemeData(color: Colors.black),
         title: Image.asset('images/nite_lyfe_3.png',
-            height: 50, width: 100, fit: BoxFit.scaleDown),
+            height: 75, width: 125, fit: BoxFit.scaleDown),
         centerTitle: true,
-        actions: <Widget>[
-          Container(
-            child: FlatButton(
-              splashColor: Colors.transparent,
-              child: Icon(Icons.chat), // or Send Icon
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MessagesScreen(),
-                ),
-              ),
-            ),
-            width: 60,
-          ),
-        ],
       ),
-      body: FutureProvider(
-        create: (context) => geoService.getInitialLocation(),
-        child: Consumer<Position>(
-          builder: (context, position, widget) {
-            return FireMap(position);
-          },
+      drawer: Drawer(
+        child: ListView(),
+      ),
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: _initalPosition,
+          zoom: 15,
         ),
+        onMapCreated: _onMapCreated,
+        zoomControlsEnabled: false,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: true,
+        tiltGesturesEnabled: false,
+        mapToolbarEnabled: false,
+        rotateGesturesEnabled: false,
+        trafficEnabled: false,
+        liteModeEnabled: false,
+        mapType: MapType.normal,
+        markers: Set<Marker>.of(markers.values),
       ),
     );
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    setState(() {
+      markerStream.listen((List<DocumentSnapshot> documentList) {
+        _updateMarkers(documentList);
+      });
+    });
+  }
+
+  void _updateMarkers(List<DocumentSnapshot> documentList) {
+    documentList.forEach((DocumentSnapshot document) {
+      final GeoPoint point = document.data()['position']['geopoint'];
+      _addMarker(point.latitude, point.longitude);
+    });
+  }
+
+  void _addMarker(double lat, double lng) {
+    final id = MarkerId(lat.toString() + lng.toString());
+    final _marker = Marker(
+      markerId: id,
+      position: LatLng(lat, lng),
+      icon: _mapMarker,
+      onTap: () {},
+    );
+    setState(() {
+      markers[id] = _marker;
+    });
+  }
+
+  void getLocation() async {
+    Position _position = await _geolocatorService.getInitalPositionforCamera();
+    setState(() {
+      _initalPosition = new LatLng(_position.latitude, _position.longitude);
+    });
   }
 }
