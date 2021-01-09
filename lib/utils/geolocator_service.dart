@@ -23,8 +23,16 @@ class GeolocatorService {
     newLocation = geo.point(latitude: lat, longitude: lng);
     //this adds to the firestore database, but we need to check if the address
     //is already  in the data base so the we dont add multiple times.
-    firestore
-        .collection('locations')
-        .add({'name': address.first.addressLine, 'position': newLocation.data});
+    firestore.collection('locations').add({
+      'addressLine': address.first.addressLine,
+      'feature': address.first.featureName,
+      'locality': address.first.locality,
+      'postal': address.first.postalCode,
+      'position': newLocation.data
+    });
   }
 }
+
+//Featurename is the house address
+//locatlity is the City/Town
+//postal code speaks for itself
