@@ -10,6 +10,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.black12,
       appBar: AppBar(
         elevation: 0,
@@ -23,47 +24,67 @@ class _MessagesScreenState extends State<MessagesScreen> {
       ),
       body: Column(
         children: [
-          Expanded(
-            flex: 1,
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 10, 180, 10),
+            color: Colors.white,
             child: Container(
-              child: Container(
-                padding: EdgeInsets.fromLTRB(5, 10, 175, 4),
-                color: Colors.white,
-                child: TextField(
-                  autocorrect: false,
-                  onChanged:
-                      null, //look up the user that closly represents the name in the search bar
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.search,
-                    ),
-                    prefixIconConstraints:
-                        BoxConstraints(maxHeight: 22.5, maxWidth: 20),
-                    contentPadding: EdgeInsets.only(left: 10),
-                    labelText: 'Search',
-                    labelStyle: TextStyle(fontFamily: 'Comfortaa'),
-                    disabledBorder: InputBorder.none,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+              child: TextField(
+                autocorrect: false,
+                onChanged:
+                    null, //look up the user that closly represents the name in the search bar
+                decoration: InputDecoration(
+                  isCollapsed: true,
+                  prefixIcon: Icon(
+                    Icons.search,
+                  ),
+                  prefixIconConstraints:
+                      BoxConstraints(maxHeight: 40, maxWidth: 20),
+                  contentPadding: EdgeInsets.only(
+                    left: 0,
+                  ),
+                  labelText: 'Search',
+                  labelStyle: TextStyle(fontFamily: 'Comfortaa'),
+                  disabledBorder: InputBorder.none,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
             ),
           ),
           Expanded(
-            flex: 15,
             child: ListView(
+              scrollDirection: Axis.vertical,
               children: <Widget>[
                 MessageBox(
+                  profilePicture:
+                      '', //prifile pictures will be stored on the DB and grab as network image
+                  recivedText: 'Hey Dave, this is just a test message',
+                  userName: 'Really_Anyone41',
+                  timeRecieved: '5:02 PM',
+                  isNew: true,
+                  onPressed: null, //TODO: navigate to a chat with user
+                ),
+                MessageBox(
                   profilePicture: '',
+                  recivedText:
+                      'The shark-infested South Pine channel was the only way in or out.',
                   userName: 'Jane Doe',
                   timeRecieved: '10:02 PM',
+                  isNew: false,
+                  onPressed: null, //TODO: navigate to a chat with user
+                ),
+                MessageBox(
+                  profilePicture: '',
+                  recivedText: 'The mysterious diary records the voice.',
+                  userName: '',
+                  timeRecieved: '10:02 PM',
+                  isNew: false,
+                  onPressed: null, //TODO: navigate to a chat with user
                 ),
               ],
-              scrollDirection: Axis.vertical,
             ),
-          )
+          ),
         ],
       ),
     );

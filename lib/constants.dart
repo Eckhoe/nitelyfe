@@ -19,3 +19,15 @@ const kTextFieldDecoraton = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+const kListTileStyle = TextStyle(
+  fontFamily: 'Comfortaa',
+  fontWeight: FontWeight.normal,
+  fontSize: 20,
+);
+
+const kMessageContainer = BoxDecoration(
+  border: Border(
+    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+  ),
+);

@@ -5,10 +5,17 @@ class MessageBox extends StatefulWidget {
   final String profilePicture;
   final String userName;
   final String timeRecieved;
+  final String recivedText;
+  final bool isNew;
+  final Function onPressed;
+
   MessageBox(
       {this.profilePicture,
+      @required this.recivedText,
       @required this.userName,
-      @required this.timeRecieved});
+      @required this.timeRecieved,
+      @required this.isNew,
+      @required this.onPressed});
   @override
   _MessageBoxState createState() => _MessageBoxState();
 }
@@ -17,7 +24,7 @@ class _MessageBoxState extends State<MessageBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 5, bottom: 5, right: 20),
+      margin: EdgeInsets.only(top: 5, right: 20),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -26,29 +33,32 @@ class _MessageBoxState extends State<MessageBox> {
         ),
         color: Colors.white,
       ),
-      child: FlatButton(
-        splashColor: Colors.black12,
-        highlightColor: Colors.transparent,
-        height: 80,
-        onPressed: () => print('hello'),
+      child: TextButton(
+        style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          overlayColor: MaterialStateProperty.all<Color>(Colors.black12),
+        ),
+        onPressed: () => widget.onPressed,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 CircleAvatar(
+                  backgroundColor: kNiteLyfeRed,
                   radius: 30,
-                  backgroundImage: widget.profilePicture != null
-                      ? AssetImage(widget.profilePicture)
-                      : null,
+                  // backgroundImage: ,
                 ),
                 SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '@' + widget.userName, //
-                      style: TextStyle(color: Colors.black),
+                      '@' + widget.userName,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
                     ),
                     SizedBox(
                       height: 5,
@@ -56,8 +66,8 @@ class _MessageBoxState extends State<MessageBox> {
                     Container(
                       width: MediaQuery.of(context).size.width * .45,
                       child: Text(
-                        'tedsfadsfaadfadhalkdjgaslkdlkmst',
-                        style: TextStyle(color: Colors.black),
+                        widget.recivedText,
+                        style: TextStyle(color: Colors.black, fontSize: 14),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -71,7 +81,9 @@ class _MessageBoxState extends State<MessageBox> {
                   padding: EdgeInsets.fromLTRB(2, 4, 2, 4),
                   child: Text(widget.timeRecieved),
                   decoration: BoxDecoration(
-                    color: kNiteLyfeRed.withOpacity(.5),
+                    color: widget.isNew == true
+                        ? kNiteLyfeRed.withOpacity(.5)
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),

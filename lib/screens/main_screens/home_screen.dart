@@ -61,7 +61,157 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       drawer: Drawer(
-        child: ListView(),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: kNiteLyfeRed,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      blurRadius: 5, color: Colors.black.withOpacity(.75)),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 15, right: 25),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 40,
+                          // backgroundImage: ,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                child: Column(
+                                  children: [Text('Followers'), Text('999')],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 20),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [Text('Following'), Text('999')],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10),
+                          ),
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.home_outlined),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                  ),
+                                  Text('15')
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(top: 5, right: 20),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.local_bar),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10),
+                                  ),
+                                  Text('5')
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        flex: 6,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '@davebaileyjr',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Comfortaa',
+                              ),
+                            ),
+                            Text(
+                              'ddavidbailey@outlook.com',
+                              style: TextStyle(fontSize: 12),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Row(
+                            children: [
+                              Icon(Icons.account_balance_wallet_outlined),
+                              Text(' \$9999999'),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: Center(
+                child: Text(
+                  'Achievements',
+                  style: kListTileStyle,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Center(
+                child: Text('Profile', style: kListTileStyle),
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Center(
+                child: Text('Settings', style: kListTileStyle),
+              ),
+              onTap: () {},
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 400, left: 50, right: 50),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.resolveWith((states) =>
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => kNiteLyfeRed),
+                ),
+                child: Text('nitelyfe +'),
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
       ),
       body: Stack(
         children: [
