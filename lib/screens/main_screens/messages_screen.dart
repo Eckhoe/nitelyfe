@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:nitelyfe/constants.dart';
 import 'package:nitelyfe/utils/message_box.dart';
 
 class MessagesScreen extends StatefulWidget {
@@ -11,7 +12,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black12,
+      backgroundColor: kMessageBackgroundColor,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
@@ -19,7 +20,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
         title: Text(
           "Messages",
           style: TextStyle(
-              color: Colors.black87, fontFamily: "Comfortaa", fontSize: 24),
+              color: Colors.black, fontFamily: "Comfortaa", fontSize: 24),
         ),
       ),
       body: Column(
@@ -39,9 +40,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   ),
                   prefixIconConstraints:
                       BoxConstraints(maxHeight: 40, maxWidth: 20),
-                  contentPadding: EdgeInsets.only(
-                    left: 0,
-                  ),
                   labelText: 'Search',
                   labelStyle: TextStyle(fontFamily: 'Comfortaa'),
                   disabledBorder: InputBorder.none,
@@ -60,19 +58,17 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   profilePicture:
                       '', //prifile pictures will be stored on the DB and grab as network image
                   recivedText: 'Hey Dave, this is just a test message',
-                  userName: 'Really_Anyone41',
+                  userName: 'dylan_lopez',
                   timeRecieved: '5:02 PM',
                   isNew: true,
-                  onPressed: null, //TODO: navigate to a chat with user
                 ),
                 MessageBox(
                   profilePicture: '',
                   recivedText:
                       'The shark-infested South Pine channel was the only way in or out.',
-                  userName: 'Jane Doe',
+                  userName: '',
                   timeRecieved: '10:02 PM',
                   isNew: false,
-                  onPressed: null, //TODO: navigate to a chat with user
                 ),
                 MessageBox(
                   profilePicture: '',
@@ -80,7 +76,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   userName: '',
                   timeRecieved: '10:02 PM',
                   isNew: false,
-                  onPressed: null, //TODO: navigate to a chat with user
                 ),
               ],
             ),

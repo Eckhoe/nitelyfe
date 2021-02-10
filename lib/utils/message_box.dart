@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:nitelyfe/constants.dart';
+import 'package:nitelyfe/screens/main_screens/chat_screen.dart';
 
 class MessageBox extends StatefulWidget {
   final String profilePicture;
@@ -7,15 +8,14 @@ class MessageBox extends StatefulWidget {
   final String timeRecieved;
   final String recivedText;
   final bool isNew;
-  final Function onPressed;
 
-  MessageBox(
-      {this.profilePicture,
-      @required this.recivedText,
-      @required this.userName,
-      @required this.timeRecieved,
-      @required this.isNew,
-      @required this.onPressed});
+  MessageBox({
+    this.profilePicture,
+    @required this.recivedText,
+    @required this.userName,
+    @required this.timeRecieved,
+    @required this.isNew,
+  });
   @override
   _MessageBoxState createState() => _MessageBoxState();
 }
@@ -38,7 +38,16 @@ class _MessageBoxState extends State<MessageBox> {
           foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
           overlayColor: MaterialStateProperty.all<Color>(Colors.black12),
         ),
-        onPressed: () => widget.onPressed,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                userName: widget.userName,
+              ),
+            ),
+          );
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

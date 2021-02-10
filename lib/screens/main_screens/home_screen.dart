@@ -68,76 +68,77 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 color: kNiteLyfeRed,
                 boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      blurRadius: 5, color: Colors.black.withOpacity(.75)),
+                  BoxShadow(blurRadius: 5, color: Colors.black.withOpacity(.7)),
                 ],
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 15, right: 25),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 40,
-                          // backgroundImage: ,
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.topLeft,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 40,
+                            // backgroundImage: ,
+                          ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                child: Column(
-                                  children: [Text('Followers'), Text('999')],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 20),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [Text('Following'), Text('999')],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 10),
-                          ),
-                          Row(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.home_outlined),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  child: Column(
+                                    children: [Text('Followers'), Text('999')],
                                   ),
-                                  Text('15')
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                ),
+                                Container(
+                                  child: Column(
+                                    children: [Text('Following'), Text('999')],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.home_outlined),
+                                      Text('15')
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.local_bar),
+                                      Text('5'),
+                                    ],
+                                  ),
                                 ],
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 5, right: 20),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(Icons.local_bar),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10),
-                                  ),
-                                  Text('5')
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
                         flex: 6,
@@ -147,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               '@davebaileyjr',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontFamily: 'Comfortaa',
                               ),
                             ),
@@ -161,16 +162,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Expanded(
                         flex: 5,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 15),
-                          child: Row(
-                            children: [
-                              Icon(Icons.account_balance_wallet_outlined),
-                              Text(' \$9999999'),
-                            ],
-                          ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.account_balance_wallet_outlined),
+                            Text(' \$9999999'),
+                          ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -197,7 +195,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {},
             ),
             Container(
-              padding: EdgeInsets.only(top: 400, left: 50, right: 50),
+              padding:
+                  EdgeInsets.only(top: 390, left: 50, right: 50, bottom: 10),
               child: ElevatedButton(
                 style: ButtonStyle(
                   shape: MaterialStateProperty.resolveWith((states) =>
@@ -321,9 +320,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             iconSize: 30,
                             onPressed: () {
-                              setState(() {
-                                markerWindowLocation = -175;
-                              });
+                              setState(
+                                () {
+                                  markerWindowLocation = -175;
+                                },
+                              );
                               //go and send request ot user to join the party and maybe push user to the message screen*
                             },
                           ),

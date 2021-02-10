@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 const kNiteLyfeRed = Color(0xFFD51C1C);
 
+const kMessageBackgroundColor = Color(0xFFf1f1f1);
+
 const kNiteLyfePlusTextStyle =
     TextStyle(color: kNiteLyfeRed, fontFamily: 'Comfortaa', fontSize: 28);
 
@@ -24,10 +26,4 @@ const kListTileStyle = TextStyle(
   fontFamily: 'Comfortaa',
   fontWeight: FontWeight.normal,
   fontSize: 20,
-);
-
-const kMessageContainer = BoxDecoration(
-  border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
-  ),
 );
