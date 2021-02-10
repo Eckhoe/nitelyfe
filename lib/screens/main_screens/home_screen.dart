@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -62,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: Drawer(
         child: ListView(
+          physics: NeverScrollableScrollPhysics(),
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
@@ -181,6 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: kListTileStyle,
                 ),
               ),
+              onTap: () {},
             ),
             ListTile(
               title: Center(
