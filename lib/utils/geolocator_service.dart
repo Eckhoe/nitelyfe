@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -6,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class GeolocatorService {
   final geo = Geoflutterfire();
   final firestore = FirebaseFirestore.instance;
+  final auth = FirebaseAuth.instance;
 
   Future<Position> getInitalPositionforCamera() async {
     Position position = new Position();
@@ -25,6 +27,9 @@ class GeolocatorService {
     //is already  in the data base so the we dont add multiple times.
     firestore.collection('locations').add({
       'addressLine': address.first.addressLine,
+      'eventCreatorEmail': auth.currentUser.email,
+      'eventCreatorUserName': auth.currentUser.displayName,
+      // 'eventDate'
       'feature': address.first.featureName,
       'locality': address.first.locality,
       'postal': address.first.postalCode,

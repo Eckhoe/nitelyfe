@@ -8,14 +8,17 @@ class Authentication {
   BuildContext context;
   final _auth = FirebaseAuth.instance;
 
-  Authentication(BuildContext context) {
+  Authentication();
+
+  Authentication.fromAuth(BuildContext context) {
     this.context = context;
   }
 
-  void registerUser(String email, String password) async {
+  void registerUser(String email, String password, String userName) async {
     try {
       final newUser = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
+      newUser.user.updateProfile(displayName: userName);
       if (newUser != null) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('email', email);
@@ -48,5 +51,13 @@ class Authentication {
     prefs.remove('email');
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
+  getUserName() {
+    return '@' + _auth.currentUser.displayName;
+  }
+
+  getEmail() {
+    return _auth.currentUser.email;
   }
 }

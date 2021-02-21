@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nitelyfe/constants.dart';
+import 'package:nitelyfe/utils/authentication.dart';
 import 'package:nitelyfe/utils/geolocator_service.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
   String addressForMarkerWindow;
   double markerWindowLocation = -175;
+  final Authentication _authentication = new Authentication();
 
   @override
   void initState() {
@@ -52,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 5,
         backgroundColor: Colors.white,
@@ -148,14 +151,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '@davebaileyjr',
+                              _authentication.getUserName(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontFamily: 'Comfortaa',
                               ),
                             ),
                             Text(
-                              'ddavidbailey@outlook.com',
+                              _authentication.getEmail(),
                               style: TextStyle(fontSize: 12),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -197,20 +200,26 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onTap: () {},
             ),
-            Container(
-              padding:
-                  EdgeInsets.only(top: 390, left: 50, right: 50, bottom: 10),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.resolveWith((states) =>
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15))),
-                  backgroundColor: MaterialStateProperty.resolveWith(
-                      (states) => kNiteLyfeRed),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(child: Container()),
+                Expanded(
+                  flex: 2,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.resolveWith((states) =>
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      backgroundColor: MaterialStateProperty.resolveWith(
+                          (states) => kNiteLyfeRed),
+                    ),
+                    child: Text('nitelyfe +'),
+                    onPressed: () {},
+                  ),
                 ),
-                child: Text('nitelyfe +'),
-                onPressed: () {},
-              ),
+                Expanded(child: Container()),
+              ],
             ),
           ],
         ),
@@ -312,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               setState(() {
                                 markerWindowLocation = -175;
                               });
-                            }, //set the state of the menu to close
+                            },
                           ),
                           IconButton(
                             alignment: Alignment.bottomCenter,

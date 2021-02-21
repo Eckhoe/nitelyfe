@@ -1,4 +1,3 @@
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nitelyfe/constants.dart';
 import 'package:nitelyfe/utils/authentication.dart';
@@ -10,9 +9,9 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  //final _auth = FirebaseAuth.instance;
   String email;
   String password;
+  String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +33,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             SizedBox(height: 8),
             TextField(
+              onChanged: (value) {
+                userName = value;
+              },
+              decoration:
+                  kTextFieldDecoraton.copyWith(hintText: 'ENTER YOUR USERNAME'),
+            ),
+            SizedBox(height: 8),
+            TextField(
               obscureText: true,
               onChanged: (value) {
                 password = value;
@@ -45,8 +52,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               title: 'Register',
               color: kNiteLyfeRed,
               onPressed: () {
-                Authentication _authentication = new Authentication(context);
-                _authentication.registerUser(email, password);
+                Authentication _authentication =
+                    new Authentication.fromAuth(context);
+                _authentication.registerUser(email, password, userName);
               },
             ),
           ],

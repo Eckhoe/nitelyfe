@@ -43,7 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
               title: 'Login',
               color: kNiteLyfeRed,
               onPressed: () {
-                Authentication _authentication = new Authentication(context);
+                Authentication _authentication =
+                    new Authentication.fromAuth(context);
                 _authentication.loginUser(email, password);
               },
             ),
