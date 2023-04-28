@@ -1,7 +1,3 @@
-# nitelyfe
-
-The most successful app to be used by the people who love to party
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.
